@@ -1,40 +1,26 @@
 package yapper;
-public class Task {
+public class Event extends Task {
 
-    protected String description;
-    protected Boolean isDone;
+    String startTime;
+    String endTime;
 
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
+    public Event(String description, String startTime, String endTime) {
+        super(description);
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
-    public String getStatus() {
-        if (isDone == true) {
-            return "X";
-        } else {
-            return " ";
-        }
+    public String getStartTime() {
+        return this.startTime;
     }
 
-    public boolean getDone() {
-        return isDone;
-    }
-
-    public void markDone() {
-        this.isDone = true;
-    }
-
-    public void unmark() {
-        this.isDone = false;
-    }
-
-    public String getDescription() {
-        return this.description;
+    public String getEndTime() {
+        return this.endTime;
     }
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.getStatus(), this.description);
+        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", this.startTime, this.endTime);
     }
+
 }
