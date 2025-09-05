@@ -1,4 +1,9 @@
 package yapper;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
 
     String deadline;
@@ -11,8 +16,10 @@ public class Deadline extends Task {
     public String getDeadline() {
         return this.deadline;
     }
+
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format(" (by: %s)", this.deadline);
+        return "[D]" + super.toString() + " (by: " + DateParser.formatDate(this.deadline) + ")";
     }
 }

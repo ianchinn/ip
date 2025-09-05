@@ -1,4 +1,8 @@
 package yapper;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 public class Event extends Task {
 
     String startTime;
@@ -20,7 +24,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", this.startTime, this.endTime);
+        return "[E]" + super.toString() + " (from: " + DateParser.formatDate(this.startTime) + " to: " + DateParser.formatDate(this.endTime) + ")";
     }
 
 }

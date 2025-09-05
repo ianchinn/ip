@@ -6,6 +6,9 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Yapper {
 
@@ -23,10 +26,10 @@ public class Yapper {
                     lines.add(String.join(" | ", "T", completed, ((Todo) task).getDescription()));
                 } else if (task instanceof Deadline) {
                     Deadline deadlineTask = (Deadline) task;
-                    lines.add(String.join(" | ", "D", completed, deadlineTask.getDescription(), "by: ", deadlineTask.getDeadline()));
+                    lines.add(String.join(" | ", "D", completed, deadlineTask.getDescription().trim(), "by: ", DateParser.formatDate(deadlineTask.getDeadline())));
                 } else if (task instanceof Event) {
                     Event eventTask = (Event) task;
-                    lines.add(String.join(" | ", "E", completed, eventTask.getDescription(), "from: ",  eventTask.getStartTime(), "to: ", eventTask.getEndTime()));
+                    lines.add(String.join(" | ", "E", completed, eventTask.getDescription().trim(), "from: ",  DateParser.formatDate(eventTask.getStartTime()), "to: ", DateParser.formatDate(eventTask.getEndTime())));
                 }
             }
             Files.write(path, lines);
@@ -51,6 +54,9 @@ public class Yapper {
                     continue;
                 }
                 String[] parts = line.split("\\|");
+                for (int i = 0; i < parts.length; i++) {
+                    parts[i] = parts[i].trim();
+                }
                 if (parts.length < 3) {
                     continue;
                 }
