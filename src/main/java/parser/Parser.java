@@ -36,37 +36,37 @@ public class Parser {
         }
     }
 
-    public Deadline deadlineTask(String details) throws Exception {
+    public Deadline deadlineTask(String details) {
         String[] deadline = details.split("/by", 2);
         if (deadline.length < 2) {
-            throw new Exception("Please enter the task!");
+            throw new IllegalArgumentException("Please enter the task!");
         }
         String detail = deadline[0].trim();
         String time = deadline[1].trim();
         if (detail.isEmpty() || time.isEmpty()) {
-            throw new Exception("Missing deadline task details!");
+            throw new IllegalArgumentException("Please enter deadline task details!");
         }
         return new Deadline(detail, time);
     }
 
-    public Event eventTask(String details) throws Exception {
+    public Event eventTask(String details) {
         String[] eventTime = details.split("/from", 2);
         if (eventTime.length < 2) {
-            throw new Exception("Please enter all relevant details for the event!");
+            throw new IllegalArgumentException("Please enter all relevant details for the event!");
         }
         String eventDetail = eventTime[0].trim();
         String[] fromTo = eventTime[1].trim().split("/to", 2);
         String from = fromTo[0].trim();
         String to = fromTo[1].trim();
         if (from.isEmpty() || to.isEmpty()) {
-            throw new Exception("Please ensure the timings are given!");
+            throw new IllegalArgumentException("Please ensure the timings are given!");
         }
         return new Event(eventDetail, from, to);
     }
 
-    public Todo todoTask(String details) throws Exception {
+    public Todo todoTask(String details) {
         if (details.isEmpty()) {
-            throw new Exception("Please enter the task!");
+            throw new IllegalArgumentException("Please enter the task!");
         }
         return new Todo(details);
     }

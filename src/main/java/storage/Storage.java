@@ -49,10 +49,10 @@ public class Storage {
             return String.join(" | ", "T", completed, ((Todo) task).getDescription());
         } else if (task instanceof Deadline) {
             Deadline deadlineTask = (Deadline) task;
-            return String.join(" | ", "D", completed, deadlineTask.getDescription().trim(), "by: ", DateParser.formatDate(deadlineTask.getDeadline()));
+            return String.join(" | ", "D", completed, deadlineTask.getDescription().trim(), "by:", DateParser.formatDate(deadlineTask.getDeadline()));
         } else if (task instanceof Event) {
             Event eventTask = (Event) task;
-            return String.join(" | ", "E", completed, eventTask.getDescription().trim(), "from: ",  DateParser.formatDate(eventTask.getStartTime()), "to: ", DateParser.formatDate(eventTask.getEndTime()));
+            return String.join(" | ", "E", completed, eventTask.getDescription().trim(), "from:",  DateParser.formatDate(eventTask.getStartTime()), "to:", DateParser.formatDate(eventTask.getEndTime()));
         }
         throw new IllegalArgumentException("Unknown task type: " + task.getClass());
     }
