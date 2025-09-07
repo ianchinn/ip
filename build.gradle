@@ -39,3 +39,12 @@ shadowJar {
 run{
     standardInput = System.in
 }
+
+jar{
+    archiveBaseName.set('Yapper')
+    manifest {
+        attributes(
+                'Main-Class': application.mainClass
+        )
+    }
+}
