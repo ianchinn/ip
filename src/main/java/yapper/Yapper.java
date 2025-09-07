@@ -144,6 +144,11 @@ public class Yapper {
                         }
                         break;
 
+                    case FIND:
+                        List<Task> matches = list.findTask(details);
+                        ui.showMatches(matches);
+                        break;
+
                     default:
                         ui.showMsg("Sorry, I'm not sure what you mean!");
                         break;

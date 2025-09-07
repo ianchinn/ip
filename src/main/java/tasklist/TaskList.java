@@ -10,6 +10,10 @@ public class TaskList {
         return task.size();
     }
 
+    public boolean isEmpty() {
+        return task.size() <= 0;
+    }
+
     public Task get(int i) {
         return task.get(i);
     }
@@ -24,6 +28,17 @@ public class TaskList {
 
     public List<Task> asList() {
         return task;
+    }
+
+    public List<Task> findTask(String k) {
+        List<Task> matches = new ArrayList<>();
+        for (int i = 0; i < task.size(); i++) {
+            Task t = task.get(i);
+            if (t.getDescription().toLowerCase().contains(k.toLowerCase())) {
+                matches.add(t);
+            }
+        }
+        return matches;
     }
 
     public String statement() {

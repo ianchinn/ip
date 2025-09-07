@@ -1,6 +1,7 @@
 package ui;
 
 import java.util.Scanner;
+import java.util.List;
 import tasklist.*;
 
 public class Ui {
@@ -33,6 +34,19 @@ public class Ui {
         }
         this.showMsg(line + "\n" + "Here are the tasks in your list:\n");
         this.showMsg(ls + line);
+    }
+
+    public void showMatches(List<Task> list ) {
+        showMsg(line);
+        if (list.isEmpty()) {
+            showMsg("No matches in your list of tasks!");
+        } else {
+            showMsg("Here are the items that match your description:\n");
+            for (int i = 0; i < list.size(); i++) {
+                showMsg((i+ 1) +"." + list.get(i));
+            }
+        }
+        showMsg(line);
     }
 
 
