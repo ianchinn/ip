@@ -26,12 +26,7 @@ public class Ui {
     }
 
     public void showList(TaskList list) {
-        int len = list.size();
-        String ls = "";
-        for (int i = 1; i <= len; i++) {
-            String curr = String.format("%d.%s\n", i, list.get(i - 1).toString());
-            ls = ls + curr;
-        }
+        String ls = list.loadList();
         this.showMsg(line + "\n" + "Here are the tasks in your list:\n");
         this.showMsg(ls + line);
     }

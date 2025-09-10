@@ -18,8 +18,9 @@ public class TaskList {
         return task.get(i);
     }
 
-    public void remove(int i) {
-        task.remove(i);
+    public void remove(Task t) {
+        int taskNum = task.indexOf(t);
+        task.remove(t);
     }
 
     public void add(Task t) {
@@ -40,6 +41,17 @@ public class TaskList {
         }
         return matches;
     }
+
+    public String loadList() {
+        int len = this.task.size();
+        String ls = "";
+        for (int i = 1; i <= len; i++) {
+            String curr = String.format("%d.%s\n", i, this.task.get(i - 1).toString());
+            ls = ls + curr;
+        }
+        return ls;
+    }
+
 
     public String statement() {
         String line = "----------------------------";
