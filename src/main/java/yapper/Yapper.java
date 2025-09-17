@@ -20,29 +20,32 @@ public class Yapper {
     final String line = "----------------------------------";
 
 
-    public Yapper () {
+    public Yapper() {
         this.ui = new Ui();
         try {
             list = storage.loadFile();
         } catch (IOException e) {
             list = new TaskList();
         }
+        assert list != null : "List should not be null after initialization";
     }
 
 
-
     public String showAdded(Task task) {
+        assert task != null : "Task to be added should not be null";
 
         return line + "\nAye. Big man gone do big man things:\n" + "\t" + task.toString() +
                 "\n" + String.format("Now you have %d tasks in the list", list.size()) + "\n" + line;
     }
 
     public String showDeleted(Task task) {
+        assert task != null : "Task to be removed should not be null";
+
         return line + "\nAye. I done removed this:\n" + "\t" + task.toString() +
                 "\n" + String.format("Now you have %d tasks in the list", list.size()) + "\n" + line;
     }
 
-    public String showMatched(List<Task> list ) {
+    public String showMatched(List<Task> list) {
         String res = "";
         String reply = "";
         if (list.isEmpty()) {
@@ -50,7 +53,7 @@ public class Yapper {
         } else {
             reply = "\nI got what you looking for innit:\n";
             for (int i = 0; i < list.size(); i++) {
-                res = (i+ 1) +"." + list.get(i);
+                res = (i + 1) + "." + list.get(i);
             }
         }
         return line + reply + res + "\n" + line;
@@ -130,120 +133,4 @@ public class Yapper {
     }
 
 
-//    public void run() {
-//        ui.showMsg("Hello! I'm Yapper! \nWhat can I do for you?");
-//        while (true) {
-//            String prompt = ui.handleCmd().trim();
-//            if (prompt.isEmpty()) continue;
-//
-//            ParsedCommand pc = parser.parse(prompt);
-//            CommandType cmd = pc.getType();
-//            String details = pc.getDetails();
-//            Task task;
-//
-//            try {
-//                switch (cmd) {
-//                    case BYE:
-//                        storage.saveTask(list);
-//                        ui.close();
-//                        return;
-//
-//                    case LIST:
-//                        ui.showList(list);
-//                        break;
-//
-//                    case MARK:
-//                        int index = Integer.parseInt(details) - 1;
-//                        Task currTask = list.get(index);
-//                        if (currTask.getStatus().equalsIgnoreCase("x")) {
-//                            ui.showMsg("This task is already marked!");
-//                            break;
-//                        }
-//                        currTask.markDone();
-//                        storage.saveTask(list);
-//                        ui.showMsg(line + "\nNice! I've marked this task as done:\n");
-//                        ui.showMsg(currTask.toString());
-//                        break;
-//
-//                    case UNMARK:
-//                        int unmarkIndex = Integer.parseInt(details) - 1;
-//                        Task unmarkTask = list.get(unmarkIndex);
-//                        if (unmarkTask.getStatus().equalsIgnoreCase(" ")) {
-//                            ui.showMsg("Task is already unmarked!!");
-//                            break;
-//                        }
-//                        unmarkTask.unmark();
-//                        storage.saveTask(list);
-//                        ui.showMsg(line + "\nOk, I've marked this task as not done yet:\n");
-//                        ui.showMsg(unmarkTask.toString());
-//                        break;
-//
-//                    case DEADLINE:
-//                        try {
-//                            task = parser.deadlineTask(details);
-//                            list.add(task);
-//                            storage.saveTask(list);
-//                            showAdded(task);
-//                        } catch (Exception e) {
-//                            ui.showError(e.getMessage());
-//                        }
-//                        break;
-//
-//                    case EVENT:
-//                        try {
-//                            task = parser.eventTask(details);
-//                            list.add(task);
-//                            storage.saveTask(list);
-//                            showAdded(task);
-//                        } catch (Exception e) {
-//                            ui.showError(e.getMessage());
-//                        }
-//
-//                        break;
-//
-//                    case TODO:
-//                        try {
-//                            task = parser.todoTask(details);
-//                            list.add(task);
-//                            storage.saveTask(list);
-//                            showAdded(task);
-//                        } catch (Exception e) {
-//                            ui.showError(e.getMessage());
-//                        }
-//                        break;
-//
-//                    case DELETE:
-//                        try {
-//                            if (details.isEmpty()) {
-//                                throw new Exception("Please choose task to delete!");
-//                            }
-//                            int taskNum = Integer.parseInt(details) - 1;
-//                            list.remove(taskNum);
-//                            storage.saveTask(list);
-//                            showDeleted(taskNum);
-//                        } catch (Exception e) {
-//                            ui.showError(e.getMessage());
-//                        }
-//                        break;
-//
-//                    case FIND:
-//                        List<Task> matches = list.findTask(details);
-//                        ui.showMatches(matches);
-//                        break;
-//
-//                    default:
-//                        ui.showMsg("Sorry, I'm not sure what you mean!");
-//                        break;
-//
-//                }
-//            } catch (Exception e) {
-//                ui.showError(e.getMessage());
-//            }
-//
-//            }
-//        }
-
-//    public static void main(String[] args) {
-//        new Yapper().run();
-//    }
 }
