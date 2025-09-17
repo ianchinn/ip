@@ -1,7 +1,6 @@
 package yapper;
 
 import parser.*;
-import ui.Ui;
 import storage.Storage;
 import tasklist.*;
 
@@ -12,8 +11,6 @@ import java.util.List;
 
 public class Yapper {
 
-
-    private final Ui ui;
     private final Storage storage = new Storage("data/yapper.txt");
     private TaskList list;
     private Parser parser = new Parser();
@@ -21,7 +18,6 @@ public class Yapper {
 
 
     public Yapper() {
-        this.ui = new Ui();
         try {
             list = storage.loadFile();
         } catch (IOException e) {
