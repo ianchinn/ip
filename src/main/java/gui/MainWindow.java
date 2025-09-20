@@ -27,6 +27,9 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/Yapper.jpg"));
 
     @FXML
+    /**
+     * @brief   initializes the chatroom with welcome by the chatbot
+     */
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
@@ -42,6 +45,9 @@ public class MainWindow extends AnchorPane {
 
 
     @FXML
+    /**
+     * @brief handles user input and generates chatbot replies, and terminates the session on "bye".
+     */
     private void handleUserInput() {
         String input = userInput.getText();
         String response = yapper.getResponse(input);

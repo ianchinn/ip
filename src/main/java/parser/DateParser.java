@@ -6,6 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+/**
+ * DateParser takes in a list of accepted date-time formats and returns a standard format.
+ */
 public class DateParser {
     private static final List<DateTimeFormatter> FORMATS = List.of(
             DateTimeFormatter.ofPattern("yyyy-MM-dd"),
@@ -30,6 +33,11 @@ public class DateParser {
     private static final DateTimeFormatter OUTPUT =
             DateTimeFormatter.ofPattern("MMM dd yyyy");
 
+    /**
+     * @brief           formats user input of date-time into a standard form to display
+     * @param timing    string of the date/time detail of tasks
+     * @return          a standard form for date-time for chatbot to display
+     */
     public static String formatDate(String timing) {
         for (DateTimeFormatter fmt : FORMATS) {
             try {

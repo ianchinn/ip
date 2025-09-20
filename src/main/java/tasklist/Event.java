@@ -23,6 +23,14 @@ public class Event extends Task {
         return this.endTime;
     }
 
+    public void setStart(String newStart) {
+        this.startTime = newStart;
+    }
+
+    public void setEnd(String newEnd) {
+        this.endTime = newEnd;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + DateParser.formatDate(this.startTime) + " to: " + DateParser.formatDate(this.endTime) + ")";

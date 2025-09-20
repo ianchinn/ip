@@ -38,6 +38,10 @@ public class Task {
         return this.description;
     }
 
+    public void setDescription(String desc) {
+        this.description = desc;
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatus(), this.description);

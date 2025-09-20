@@ -18,6 +18,10 @@ public class Deadline extends Task {
         return this.deadline;
     }
 
+    public void setDeadline(String newDeadline) {
+        this.deadline = newDeadline;
+    }
+
 
     @Override
     public String toString() {

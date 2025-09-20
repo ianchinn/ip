@@ -52,6 +52,48 @@ public class TaskList {
         return ls;
     }
 
+    public Task update(int item, String field, String updateVal) {
+        if (item <= 0 || item > task.size() ) {
+            throw new IndexOutOfBoundsException("Invalid task number");
+        }
+        if (updateVal == null || updateVal.isBlank()) {
+            throw new IllegalArgumentException("Please give an appropriate input");
+        }
+
+        Task updateTask = task.get(item - 1);
+        String updateField = field.toLowerCase();
+
+        switch (updateField) {
+            case "name":
+                updateTask.setDescription(updateVal);
+                break;
+            case "by":
+                if (updateTask instanceof Deadline) {
+                    ((Deadline) updateTask).setDeadline(updateVal);
+                } else {
+                    throw new IllegalArgumentException("This task is not a Deadline Task!");
+                }
+                break;
+            case "from":
+                if (updateTask instanceof Event) {
+                    ((Event) updateTask).setStart(updateVal);
+                } else {
+                    throw new IllegalArgumentException("This task is not an Event Task!");
+                }
+                break;
+            case "to":
+                if (updateTask instanceof Event) {
+                    ((Event) updateTask).setEnd(updateVal);
+                } else {
+                    throw new IllegalArgumentException("This task is not an Event Task!");
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Please give appropriate commands: /name, /by, /from, /to, and inputs!");
+        }
+        return updateTask;
+    }
+
 
     public String statement() {
         String line = "----------------------------";

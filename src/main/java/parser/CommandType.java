@@ -1,5 +1,8 @@
 package parser;
 
+/**
+ * List of all possible command types the user can give
+ */
 public enum CommandType {
     BYE,
     LIST,
@@ -10,5 +13,6 @@ public enum CommandType {
     EVENT,
     DELETE,
     FIND,
+    UPDATE,
     UNKNOWN
 }

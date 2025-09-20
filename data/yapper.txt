@@ -1,5 +1,5 @@
-E | X | e2 | from: | Feb 02 2025 | to: | Feb 02 2026
-D | 0 | d1 | by: | Sep 12 2026
+E | X | e1 | from: | Feb 02 2025 | to: | Feb 02 2026
+D | 0 | deadline task 1 | by: | Dec 12 2025
 T | 0 | 1
-T | 0 | 1
-E | 0 | function | from: | today | to: | tmr
+T | 0 | T2
+E | 0 | event | from: | Jul 07 2025 | to: | Aug 08 2025

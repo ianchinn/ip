@@ -1,16 +1,27 @@
 package parser;
 
+import com.sun.javafx.image.IntPixelGetter;
 import tasklist.*;
 
+import java.util.Arrays;
+
+/**
+ * Parser handles the input strings and identifies the command type as well as remaining details
+ */
 public class Parser {
 
+    /**
+     * @brief       takes in user input and parses through to identify command type and details
+     * @param line  user input, with command given at the start
+     * @return      a ParsedCommand object with the command type identified and details separated
+     */
     public ParsedCommand parse(String line) {
         if (line == null || line.trim().isEmpty()) {
             return new ParsedCommand(CommandType.UNKNOWN, "");
         }
         String trimmedLine = line.trim();
 
-        String[] parts = trimmedLine.split(" ", 2);
+        String[] parts = trimmedLine.split(" ");
         String cmd = parts[0].toLowerCase();
         String details = parts.length > 1
                         ? parts[1] : "";
@@ -33,11 +44,37 @@ public class Parser {
                 return new ParsedCommand(CommandType.DELETE, details);
             case "find":
                 return new ParsedCommand(CommandType.FIND, details);
+            case "update":
+                if (parts.length < 4) {
+                    throw new IllegalArgumentException("Usage: update index /field value");
+                }
+                int index = Integer.parseInt(parts[1]);
+                String updateField = parts[2];
+                String field;
+                if (updateField.equals("/name")) {
+                    field = "name";
+                } else if (updateField.equals("/by")) {
+                    field = "by";
+                } else if (updateField.equals("/from")) {
+                    field = "from";
+                } else if (updateField.equals("/to")) {
+                    field = "to";
+                } else {
+                    throw new IllegalArgumentException("Not a supported command!");
+                }
+                String val = String.join(" ", Arrays.copyOfRange(parts, 3, parts.length));
+                return new ParsedCommand(CommandType.UPDATE, field, index, val);
+
             default:
                 return new ParsedCommand(CommandType.UNKNOWN, details);
         }
     }
 
+    /**
+     * @brief           creates deadline task
+     * @param details   string containing the deadline after "/by"
+     * @return          deadline task with its deadline as specified by user
+     */
     public Deadline deadlineTask(String details) {
         String[] deadline = details.split("/by", 2);
         if (deadline.length < 2) {
@@ -51,6 +88,11 @@ public class Parser {
         return new Deadline(detail, time);
     }
 
+    /**
+     * @brief           creates event task
+     * @param details   string containing the task duration
+     * @return          event task with its duration as specified by user
+     */
     public Event eventTask(String details) {
         String[] eventTime = details.split("/from", 2);
         if (eventTime.length < 2) {
@@ -66,10 +108,16 @@ public class Parser {
         return new Event(eventDetail, from, to);
     }
 
+    /**
+     * @brief           creates a todo task
+     * @param details   task name
+     * @return          a todo task
+     */
     public Todo todoTask(String details) {
         if (details.isEmpty()) {
             throw new IllegalArgumentException("Please enter the task!");
         }
         return new Todo(details);
     }
+
 }
