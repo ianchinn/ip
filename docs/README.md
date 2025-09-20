@@ -1,6 +1,6 @@
 # Yapper User Guide
 
-![Yapper sample](../src/main/resources/GUI%20sample.png)
+![Yapper sample](./GUI%20sample.png)
 
 ## Adding Tasks!
 
