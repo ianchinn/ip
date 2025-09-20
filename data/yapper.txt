@@ -1,5 +1,7 @@
-E | X | e1 | from: | Feb 02 2025 | to: | Feb 02 2026
-D | 0 | deadline task 1 | by: | Dec 12 2025
-T | 0 | 1
-T | 0 | T2
-E | 0 | event | from: | Jul 07 2025 | to: | Aug 08 2025
+E | X | Holiday | from: | Feb 20 2025 | to: | Mar 02 2025
+D | 0 | Finish Assignment | by: | Dec 12 2025
+T | 0 | Wash Laundry
+T | X | Cook Dinner
+E | 0 | Meeting | from: | Jul 07 2025 | to: | Jul 08 2025
+D | 0 | clean pantry | by: | tmr
+T | 0 | task

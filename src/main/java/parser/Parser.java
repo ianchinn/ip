@@ -21,10 +21,10 @@ public class Parser {
         }
         String trimmedLine = line.trim();
 
-        String[] parts = trimmedLine.split(" ");
+        String[] parts = trimmedLine.split(" ", 2);
         String cmd = parts[0].toLowerCase();
         String details = parts.length > 1
-                        ? parts[1] : "";
+                        ? parts[1].trim() : "";
         switch (cmd) {
             case "bye":
                 return new ParsedCommand(CommandType.BYE, details);
@@ -43,13 +43,17 @@ public class Parser {
             case "delete":
                 return new ParsedCommand(CommandType.DELETE, details);
             case "find":
+                if (details.isEmpty()) {
+                    throw new IllegalArgumentException("Please enter what you want to find!");
+                }
                 return new ParsedCommand(CommandType.FIND, details);
             case "update":
-                if (parts.length < 4) {
+                String[] upd = details.split(" ", 3);
+                if (upd.length < 3) {
                     throw new IllegalArgumentException("Usage: update index /field value");
                 }
-                int index = Integer.parseInt(parts[1]);
-                String updateField = parts[2];
+                int index = Integer.parseInt(upd[0]);
+                String updateField = upd[1];
                 String field;
                 if (updateField.equals("/name")) {
                     field = "name";
@@ -62,7 +66,7 @@ public class Parser {
                 } else {
                     throw new IllegalArgumentException("Not a supported command!");
                 }
-                String val = String.join(" ", Arrays.copyOfRange(parts, 3, parts.length));
+                String val = upd[2];
                 return new ParsedCommand(CommandType.UPDATE, field, index, val);
 
             default:

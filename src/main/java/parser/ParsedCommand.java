@@ -21,7 +21,7 @@ public class ParsedCommand {
     }
 
     /**
-     * @brief               overloaded ParsedCommand for updating tasks
+     * @brief               overloaded constructor for updating tasks
      * @param type          type of command as per listed under CommandType
      * @param details       field the user wishes to update
      * @param index         the item on list the user wishes to update

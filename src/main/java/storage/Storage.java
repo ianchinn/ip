@@ -15,6 +15,11 @@ public class Storage {
         this.file = Paths.get(path);
     }
 
+    /**
+     * @brief                   writes the current list into a file that can be opened again on new runs
+     * @param list              task list to save
+     * @throws IOException
+     */
     public void saveTask(TaskList list) throws IOException {
         Files.createDirectories(file.getParent());
         try (BufferedWriter bw = Files.newBufferedWriter(file)) {
@@ -24,6 +29,11 @@ public class Storage {
         }
     }
 
+    /**
+     * @brief               loads a determined savefile containing a task list
+     * @return              a tasklist that contains information from previous runs
+     * @throws IOException
+     */
     public TaskList loadFile() throws IOException {
         TaskList list = new TaskList();
         if (!Files.exists(file)) {
@@ -42,7 +52,11 @@ public class Storage {
         return list;
     }
 
-
+    /**
+     * @brief           saves a task in a standard format in the save file such that it is easier for parser to read and decode
+     * @param task      current task to save into the save file
+     * @return          a string that details the task information in a specific order
+     */
     public String encode (Task task) {
         String completed = "x".equalsIgnoreCase(task.getStatus().trim()) ? "X" : "0";
         if (task instanceof Todo) {
@@ -57,6 +71,11 @@ public class Storage {
         throw new IllegalArgumentException("Unknown task type: " + task.getClass());
     }
 
+    /**
+     * @brief       unpacks the save file information and creates the task based on the information on that file
+     * @param line  the current line the parser is looking at in the save file, each line details one task
+     * @return      a specific task, either a Todo, Deadline or Event
+     */
     public Task decode(String line) {
         try{
             String[] parts = line.split("\\|");

@@ -13,7 +13,6 @@ import java.util.List;
 public class Yapper {
 
 
-    private final Ui ui;
     private final Storage storage = new Storage("data/yapper.txt");
     private TaskList list;
     private Parser parser = new Parser();
@@ -21,7 +20,6 @@ public class Yapper {
 
 
     public Yapper() {
-        this.ui = new Ui();
         try {
             list = storage.loadFile();
         } catch (IOException e) {
@@ -45,15 +43,15 @@ public class Yapper {
                 "\n" + String.format("Now you have %d tasks in the list", list.size()) + "\n" + line;
     }
 
-    public String showMatched(List<Task> list) {
+    public String showMatched(List<Task> matches) {
         String res = "";
         String reply = "";
-        if (list.isEmpty()) {
+        if (matches.isEmpty()) {
             return "None of that around here big man";
         } else {
             reply = "\nI got what you looking for innit:\n";
-            for (int i = 0; i < list.size(); i++) {
-                res = (i + 1) + "." + list.get(i);
+            for (int i = 0; i < matches.size(); i++) {
+                res = res + "\n" + (i + 1) + "." + matches.get(i);
             }
         }
         return line + reply + res + "\n" + line;
